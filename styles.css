@@ -1884,6 +1884,7 @@ h3 {
     justify-self: stretch;
     grid-template-columns: 1fr;
     gap: 10px;
+    padding: 0;
   }
 
   .carousel-stage {
@@ -1894,7 +1895,7 @@ h3 {
   }
 
   .carousel-ring {
-    width: min(330px, calc(100vw - 64px));
+    width: min(330px, 100%);
     height: 280px;
   }
 
