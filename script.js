@@ -24,6 +24,23 @@ const catalogModalTitle = document.querySelector("#catalogModalTitle");
 const catalogModalDetail = document.querySelector("#catalogModalDetail");
 const catalogModalCloseButtons = document.querySelectorAll("[data-catalog-modal-close]");
 const defaultView = "inicio";
+let revealObserver;
+const revealSelectors = [
+    ".hero-copy",
+    ".home-carousel",
+    ".section-heading",
+    ".catalog-sidebar",
+    ".catalog-page",
+    ".quote-panel",
+    ".gallery-toolbar",
+    ".gallery-mosaic article",
+    ".mini-clients",
+    ".delivery-mosaic > *",
+    ".order-card",
+    ".order-flow article",
+    ".contact-hero > div",
+    ".contact-form",
+];
 const catalogMainTags = ["corte-grabado", "tejidos-crochet"];
 const catalogFilterLabels = {
     all: "Todos",
@@ -427,6 +444,52 @@ function openWhatsApp(message) {
     window.open(buildWhatsAppUrl(message), "_blank", "noopener,noreferrer");
 }
 
+function prepareRevealEffects() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    if (!revealObserver) {
+        revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add("is-visible");
+                revealObserver.unobserve(entry.target);
+            });
+        }, { threshold: 0.14 });
+    }
+
+    document.querySelectorAll(revealSelectors.join(",")).forEach((element, index) => {
+        if (element.classList.contains("reveal-item")) return;
+
+        element.classList.add("reveal-item");
+        element.style.transitionDelay = `${Math.min(index % 6, 5) * 55}ms`;
+        revealObserver.observe(element);
+    });
+}
+
+function revealActiveView(restart = false) {
+    const activeView = document.querySelector(".view.is-active");
+    if (!activeView) return;
+
+    const visibleElements = Array.from(activeView.querySelectorAll(".reveal-item")).filter((element) => {
+        const rect = element.getBoundingClientRect();
+        return rect.top < window.innerHeight * 0.96;
+    });
+
+    if (restart) {
+        visibleElements.forEach((element) => {
+            element.classList.remove("is-visible");
+        });
+
+        activeView.offsetHeight;
+    }
+
+    visibleElements.forEach((element, index) => {
+        window.setTimeout(() => {
+            element.classList.add("is-visible");
+        }, restart ? 90 + (index % 8) * 95 : 0);
+    });
+}
+
 function readableName(fileName) {
     const baseName = fileName.replace(/\.[^.]+$/, "").toLowerCase();
     if (baseName.startsWith("porta")) return "Portalapicero";
@@ -467,6 +530,9 @@ function renderGallery(filter = "all") {
       </article>
     `;
     }).join("");
+
+    prepareRevealEffects();
+    revealActiveView();
 }
 
 function renderDeliveries() {
@@ -495,6 +561,9 @@ function renderDeliveries() {
         videoCards[1],
         ...photoCards.slice(8),
     ].join("");
+
+    prepareRevealEffects();
+    revealActiveView();
 }
 
 function showWorkPanel(panelName) {
@@ -562,7 +631,7 @@ function renderCatalog(filter = "all") {
         <h3>${item.name}</h3>
         <p>${item.detail}</p>
         <div class="catalog-actions">
-          <button class="text-button catalog-buy" type="button" data-catalog-product="${item.name}">Cotizar</button>
+          <button class="text-button catalog-buy" type="button" data-catalog-product="${item.name}">Comprar</button>
           <strong>${item.price}</strong>
         </div>
       </div>
@@ -579,9 +648,12 @@ function renderCatalog(filter = "all") {
 
     catalogList.querySelectorAll("[data-catalog-product]").forEach((button) => {
         button.addEventListener("click", () => {
-            openWhatsApp(`Hola, quiero cotizar ${button.dataset.catalogProduct}.`);
+            openWhatsApp(`Hola, quiero comprar ${button.dataset.catalogProduct}.`);
         });
     });
+
+    prepareRevealEffects();
+    revealActiveView();
 }
 
 function selectCatalogFilter(button) {
@@ -634,6 +706,9 @@ function showView(viewName, updateHash = true) {
     if (!updateHash) {
         window.setTimeout(() => window.scrollTo({ top: 0, behavior: "auto" }), 0);
     }
+
+    prepareRevealEffects();
+    window.setTimeout(() => revealActiveView(true), 40);
 }
 
 if (menuToggle && mainMenu) {
@@ -727,7 +802,7 @@ if (carousel) {
 
     function getCarouselLayout() {
         if (window.matchMedia("(max-width: 700px)").matches) {
-            return { sideOffset: 156, activeDepth: 58, sideDepth: -96, hiddenDepth: -220 };
+            return { sideOffset: 42, activeDepth: 58, sideDepth: -96, hiddenDepth: -220 };
         }
 
         if (window.matchMedia("(max-width: 980px)").matches) {
