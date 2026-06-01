@@ -456,6 +456,7 @@ h3 {
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 14px;
+  width: 100%;
   max-width: 1140px;
   margin: 30px auto 0;
   padding: 0 18px;
@@ -1878,18 +1879,22 @@ h3 {
   }
 
   .home-carousel {
+    width: 100%;
+    max-width: 100%;
+    justify-self: stretch;
     grid-template-columns: 1fr;
     gap: 10px;
   }
 
   .carousel-stage {
+    width: 100%;
     min-height: 350px;
     order: 1;
     overflow: hidden;
   }
 
   .carousel-ring {
-    width: min(330px, 100%);
+    width: min(330px, calc(100vw - 64px));
     height: 280px;
   }
 

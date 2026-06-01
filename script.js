@@ -800,6 +800,12 @@ if (carousel) {
     let activeIndex = 0;
     let autoplayId;
 
+    carousel.querySelectorAll("img").forEach((image) => {
+        image.addEventListener("error", () => {
+            image.src = "assets/web/gravix-placa.webp";
+        }, { once: true });
+    });
+
     function getCarouselLayout() {
         if (window.matchMedia("(max-width: 700px)").matches) {
             return { sideOffset: 42, activeDepth: 58, sideDepth: -96, hiddenDepth: -220 };
