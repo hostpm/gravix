@@ -808,7 +808,7 @@ if (carousel) {
 
     function getCarouselLayout() {
         if (window.matchMedia("(max-width: 700px)").matches) {
-            return { sideOffset: 108, activeDepth: 58, sideDepth: -96, hiddenDepth: -220 };
+            return { sideOffset: 132, activeDepth: 58, sideDepth: -104, hiddenDepth: -230 };
         }
 
         if (window.matchMedia("(max-width: 980px)").matches) {

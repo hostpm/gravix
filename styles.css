@@ -1891,7 +1891,7 @@ h3 {
     width: 100%;
     min-height: 350px;
     order: 1;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .carousel-ring {
@@ -1926,11 +1926,11 @@ h3 {
   }
 
   .carousel-arrow[data-carousel-prev] {
-    --arrow-shift: -136px;
+    --arrow-shift: -150px;
   }
 
   .carousel-arrow[data-carousel-next] {
-    --arrow-shift: 96px;
+    --arrow-shift: 110px;
   }
 
   .premium-product.wide img {
