@@ -524,12 +524,18 @@ function renderGallery(filter = "all") {
     galleryGrid.innerHTML = items.map((item) => {
         const label = readableName(item);
         return `
-      <article data-category="${galleryCategory(item)}">
+      <article data-category="${galleryCategory(item)}" data-gallery-image="assets/web/gallery/${item}" data-gallery-title="${label}">
         <img src="assets/web/gallery/${item}" alt="${label}" loading="lazy">
         <span>${label}</span>
       </article>
     `;
     }).join("");
+
+    galleryGrid.querySelectorAll("[data-gallery-image]").forEach((card) => {
+        card.addEventListener("click", () => {
+            openImageModal(card.dataset.galleryImage, card.dataset.galleryTitle, "Trabajo realizado por Gissel.line.");
+        });
+    });
 
     prepareRevealEffects();
     revealActiveView();
@@ -539,7 +545,9 @@ function renderDeliveries() {
     if (!deliveryGrid) return;
 
     const photoCards = deliveryItems.map((item, index) => `
-    <img src="assets/web/clients/${item}" alt="Entrega real ${index + 1}" loading="lazy">
+    <button class="delivery-image-button" type="button" data-delivery-image="assets/web/clients/${item}" data-delivery-title="Entrega real ${index + 1}" aria-label="Ver entrega real ${index + 1}">
+      <img src="assets/web/clients/${item}" alt="Entrega real ${index + 1}" loading="lazy">
+    </button>
   `);
     const videoCards = [
         `<article class="delivery-video">
@@ -561,6 +569,12 @@ function renderDeliveries() {
         videoCards[1],
         ...photoCards.slice(8),
     ].join("");
+
+    deliveryGrid.querySelectorAll("[data-delivery-image]").forEach((button) => {
+        button.addEventListener("click", () => {
+            openImageModal(button.dataset.deliveryImage, button.dataset.deliveryTitle, "Entrega real de cliente.");
+        });
+    });
 
     prepareRevealEffects();
     revealActiveView();
@@ -590,6 +604,14 @@ function openCatalogModal(item) {
     catalogModal.classList.add("is-open");
     catalogModal.setAttribute("aria-hidden", "false");
     document.body.classList.add("modal-open");
+}
+
+function openImageModal(image, title, detail = "Imagen ampliada del portafolio.") {
+    openCatalogModal({
+        image,
+        name: title,
+        detail,
+    });
 }
 
 function closeCatalogModal() {
@@ -808,7 +830,7 @@ if (carousel) {
 
     function getCarouselLayout() {
         if (window.matchMedia("(max-width: 700px)").matches) {
-            return { sideOffset: 132, activeDepth: 58, sideDepth: -104, hiddenDepth: -230 };
+            return { sideOffset: 150, activeDepth: 40, sideDepth: 0, hiddenDepth: -180, sideRotate: 0, hiddenRotate: 0, sideScale: 0.74, hiddenScale: 0.58, sideOpacity: 0.72 };
         }
 
         if (window.matchMedia("(max-width: 980px)").matches) {
@@ -843,10 +865,11 @@ if (carousel) {
             let zIndex = 3;
 
             if (!isActive && distance === 1) {
-                transform = `translateX(${offset * layout.sideOffset}px) translateZ(${layout.sideDepth}px) rotateY(${direction * -38}deg) scale(0.84)`;
+                transform = `translateX(${offset * layout.sideOffset}px) translateZ(${layout.sideDepth}px) rotateY(${direction * -(layout.sideRotate ?? 38)}deg) scale(${layout.sideScale ?? 0.84})`;
+                opacity = String(layout.sideOpacity ?? 1);
                 zIndex = 2;
             } else if (!isActive) {
-                transform = `translateX(${offset * (layout.sideOffset * 0.64)}px) translateZ(${layout.hiddenDepth}px) rotateY(${direction * -48}deg) scale(0.68)`;
+                transform = `translateX(${offset * (layout.sideOffset * 0.64)}px) translateZ(${layout.hiddenDepth}px) rotateY(${direction * -(layout.hiddenRotate ?? 48)}deg) scale(${layout.hiddenScale ?? 0.68})`;
                 opacity = "0";
                 zIndex = 1;
             }

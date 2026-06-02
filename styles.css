@@ -1210,6 +1210,7 @@ h3 {
   position: relative;
   overflow: hidden;
   min-height: 132px;
+  cursor: zoom-in;
   transition: transform 220ms ease, box-shadow 220ms ease;
 }
 
@@ -1282,13 +1283,19 @@ h3 {
   gap: 12px;
 }
 
-.delivery-mosaic img,
-.delivery-video {
+.delivery-video,
+.delivery-image-button {
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.72);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.82);
   box-shadow: var(--shadow);
+}
+
+.delivery-image-button {
+  display: block;
+  padding: 0;
+  cursor: zoom-in;
 }
 
 .delivery-mosaic img {
@@ -1298,6 +1305,12 @@ h3 {
   object-fit: cover;
   object-position: center;
   padding: 0;
+}
+
+.delivery-image-button img {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .delivery-video {
