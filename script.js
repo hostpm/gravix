@@ -820,7 +820,8 @@ if (carousel) {
     const prevButton = carousel.querySelector("[data-carousel-prev]");
     const nextButton = carousel.querySelector("[data-carousel-next]");
     let activeIndex = 0;
-    let autoplayId;
+    let touchStartX = 0;
+    let touchStartY = 0;
 
     carousel.querySelectorAll("img").forEach((image) => {
         image.addEventListener("error", () => {
@@ -830,14 +831,14 @@ if (carousel) {
 
     function getCarouselLayout() {
         if (window.matchMedia("(max-width: 700px)").matches) {
-            return { sideOffset: 150, activeDepth: 40, sideDepth: 0, hiddenDepth: -180, sideRotate: 0, hiddenRotate: 0, sideScale: 0.74, hiddenScale: 0.58, sideOpacity: 0.72 };
+            return { sideOffset: 118, activeDepth: 0, sideDepth: 0, hiddenDepth: 0, sideRotate: 0, hiddenRotate: 0, sideScale: 0.72, hiddenScale: 0.54, sideOpacity: 0.78 };
         }
 
         if (window.matchMedia("(max-width: 980px)").matches) {
-            return { sideOffset: 232, activeDepth: 70, sideDepth: -110, hiddenDepth: -240 };
+            return { sideOffset: 205, activeDepth: 0, sideDepth: 0, hiddenDepth: 0, sideRotate: 0, hiddenRotate: 0, sideScale: 0.74, hiddenScale: 0.54, sideOpacity: 0.78 };
         }
 
-        return { sideOffset: 318, activeDepth: 82, sideDepth: -120, hiddenDepth: -260 };
+        return { sideOffset: 300, activeDepth: 0, sideDepth: 0, hiddenDepth: 0, sideRotate: 0, hiddenRotate: 0, sideScale: 0.78, hiddenScale: 0.55, sideOpacity: 0.78 };
     }
 
     function getCarouselOffset(slideIndex) {
@@ -876,7 +877,7 @@ if (carousel) {
 
             slide.style.transform = transform;
             slide.style.opacity = opacity;
-            slide.style.filter = isActive ? "none" : "saturate(0.9) brightness(0.9)";
+            slide.style.filter = isActive ? "none" : "saturate(0.92) brightness(0.88)";
             slide.style.pointerEvents = distance > 1 ? "none" : "auto";
             slide.style.zIndex = String(zIndex);
             slide.classList.toggle("is-active", isActive);
@@ -896,11 +897,6 @@ if (carousel) {
         }
     }
 
-    function restartAutoplay() {
-        window.clearInterval(autoplayId);
-        autoplayId = window.setInterval(() => setActiveSlide(activeIndex + 1), 5200);
-    }
-
     slides.forEach((slide, index) => {
         slide.addEventListener("click", () => {
             if (index === activeIndex) {
@@ -909,26 +905,36 @@ if (carousel) {
             }
 
             setActiveSlide(index);
-            restartAutoplay();
         });
     });
 
     prevButton?.addEventListener("click", () => {
         setActiveSlide(activeIndex - 1);
-        restartAutoplay();
     });
 
     nextButton?.addEventListener("click", () => {
         setActiveSlide(activeIndex + 1);
-        restartAutoplay();
     });
 
-    carousel.addEventListener("mouseenter", () => window.clearInterval(autoplayId));
-    carousel.addEventListener("mouseleave", restartAutoplay);
+    carousel.addEventListener("touchstart", (event) => {
+        const touch = event.changedTouches[0];
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+    }, { passive: true });
+
+    carousel.addEventListener("touchend", (event) => {
+        const touch = event.changedTouches[0];
+        const deltaX = touch.clientX - touchStartX;
+        const deltaY = touch.clientY - touchStartY;
+
+        if (Math.abs(deltaX) < 42 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+        setActiveSlide(deltaX < 0 ? activeIndex + 1 : activeIndex - 1);
+    }, { passive: true });
+
     window.addEventListener("resize", () => setActiveSlide(activeIndex));
 
     setActiveSlide(0);
-    restartAutoplay();
 }
 
 renderGallery();
