@@ -18,6 +18,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -1806,7 +1807,8 @@ h3 {
   }
 
   .catalog-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
 
   .catalog-filters {
@@ -1824,7 +1826,52 @@ h3 {
   }
 
   .catalog-actions {
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .catalog-item {
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  .catalog-image-button {
+    border-radius: 13px;
+  }
+
+  .catalog-info {
+    padding: 9px 2px 1px;
+  }
+
+  .catalog-item span {
+    font-size: 0.62rem;
+  }
+
+  .catalog-item h3 {
+    font-size: 0.86rem;
+    line-height: 1.15;
+  }
+
+  .catalog-item p {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 0.74rem;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .catalog-buy {
+    width: 100%;
+    padding: 7px 9px;
+    font-size: 0.78rem;
+  }
+
+  .catalog-item strong {
+    margin-left: 0;
+    font-size: 0.86rem;
+    text-align: center;
   }
 
   .catalog-modal {
@@ -1905,7 +1952,7 @@ h3 {
     width: 100%;
     min-height: 310px;
     order: 1;
-    overflow: visible;
+    overflow: hidden;
     touch-action: pan-y;
   }
 
