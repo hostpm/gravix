@@ -451,6 +451,7 @@ h3 {
   height: 22px;
   border-radius: 6px;
   object-fit: contain;
+  flex: 0 0 auto;
 }
 
 .hero-socials a[href*="tiktok"] img {
@@ -1702,14 +1703,17 @@ h3 {
   }
 
   .brand strong {
-    font-size: 0.96rem;
+    font-size: 0.94rem;
   }
 
   .brand small {
     display: block;
-    margin-top: 3px;
-    font-size: 0.52rem;
-    line-height: 1;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 0.58rem;
+    font-weight: 700;
+    line-height: 1.05;
+    white-space: nowrap;
   }
 
   .menu-toggle {
@@ -1774,22 +1778,27 @@ h3 {
   .hero-socials {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    width: min(300px, calc(100vw - 48px));
+    width: min(270px, calc(100vw - 64px));
+    gap: 7px;
   }
 
   .hero-socials a {
     justify-content: center;
     min-width: 0;
-    padding: 8px;
+    min-height: 36px;
+    padding: 6px 8px;
+    gap: 6px;
   }
 
   .hero-socials span {
-    font-size: 0.68rem;
+    font-size: 0.64rem;
   }
 
   .hero-socials img {
-    width: 21px;
-    height: 21px;
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    object-fit: cover;
   }
 
   .showcase-rail,
