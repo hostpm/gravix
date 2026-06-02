@@ -1706,7 +1706,10 @@ h3 {
   }
 
   .brand small {
-    display: none;
+    display: block;
+    margin-top: 3px;
+    font-size: 0.52rem;
+    line-height: 1;
   }
 
   .menu-toggle {
