@@ -446,9 +446,16 @@ h3 {
   color: rgba(255, 255, 255, 0.72);
 }
 
-.hero-socials strong {
-  font-size: 0.94rem;
-  font-weight: 750;
+.hero-socials img {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+.hero-socials a[href*="tiktok"] img {
+  border-radius: 4px;
+  background: #000;
 }
 
 .home-carousel {
@@ -1017,6 +1024,11 @@ h3 {
   background: rgba(11, 116, 109, 0.1);
   font-size: 0.68rem;
   font-weight: 700;
+}
+
+/* Category badges are kept in the markup for future use, but hidden for now. */
+.catalog-item span {
+  display: none;
 }
 
 .catalog-item h3 {
@@ -1772,8 +1784,9 @@ h3 {
     font-size: 0.68rem;
   }
 
-  .hero-socials strong {
-    font-size: 0.86rem;
+  .hero-socials img {
+    width: 21px;
+    height: 21px;
   }
 
   .showcase-rail,
