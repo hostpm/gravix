@@ -216,7 +216,7 @@ h3 {
   inset: 0;
   z-index: -2;
   background-image:
-    linear-gradient(180deg, rgba(247, 244, 239, 0.92) 0%, rgba(247, 244, 239, 0.76) 44%, rgba(247, 244, 239, 0.95) 100%),
+    linear-gradient(180deg, rgba(247, 244, 239, 0.88) 0%, rgba(247, 244, 239, 0.64) 44%, rgba(247, 244, 239, 0.94) 100%),
     url("assets/web/padre-fondo-morado.jpg");
   background-position: center;
   background-size: cover;
@@ -229,7 +229,7 @@ h3 {
   z-index: -1;
   background:
     radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.66), transparent 28%),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.74), transparent 34%, rgba(255, 255, 255, 0.66));
+    linear-gradient(90deg, rgba(255, 255, 255, 0.6), transparent 34%, rgba(255, 255, 255, 0.56));
   backdrop-filter: blur(1.5px);
 }
 
@@ -371,9 +371,12 @@ h3 {
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 18px;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(244, 241, 234, 0.92)),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(244, 241, 234, 0.82)),
     radial-gradient(circle at 12% 0%, rgba(196, 164, 91, 0.26), transparent 36%),
-    radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.1), transparent 38%);
+    radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.1), transparent 38%),
+    url("assets/web/padre-fondo-morado.jpg");
+  background-position: center;
+  background-size: cover;
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.1);
 }
 
@@ -505,6 +508,45 @@ h3 {
   background: rgba(255, 255, 255, 0.78);
   font-size: 0.84rem;
   font-weight: 700;
+}
+
+.father-feature-item {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  width: min(330px, 100%);
+  padding: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.1);
+}
+
+.father-feature-item img {
+  width: 72px;
+  height: 72px;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.father-feature-item div {
+  display: grid;
+  gap: 2px;
+  text-align: left;
+}
+
+.father-feature-item span {
+  color: #3a3a3e;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.father-feature-item strong {
+  color: var(--ink);
+  font-size: 0.98rem;
+  line-height: 1.1;
 }
 
 .father-promo .btn {
@@ -1936,7 +1978,7 @@ h3 {
   #inicio.view::after {
     backdrop-filter: blur(2px);
     background:
-      linear-gradient(180deg, rgba(247, 244, 239, 0.96), rgba(247, 244, 239, 0.84) 46%, rgba(247, 244, 239, 0.97));
+      linear-gradient(180deg, rgba(247, 244, 239, 0.9), rgba(247, 244, 239, 0.68) 46%, rgba(247, 244, 239, 0.94));
   }
 
   .navbar {
@@ -2042,6 +2084,7 @@ h3 {
 
   .father-promo-main {
     grid-column: 1 / -1;
+    order: -1;
   }
 
   .father-promo h2 {
@@ -2062,6 +2105,21 @@ h3 {
     font-size: 0.72rem;
   }
 
+  .father-feature-item {
+    grid-template-columns: 58px minmax(0, 1fr);
+    width: min(250px, 100%);
+    padding: 7px;
+  }
+
+  .father-feature-item img {
+    width: 58px;
+    height: 58px;
+  }
+
+  .father-feature-item strong {
+    font-size: 0.9rem;
+  }
+
   .father-side-image,
   .father-side-image-left {
     height: 126px;
@@ -2069,7 +2127,12 @@ h3 {
   }
 
   .father-side-image-left {
+    order: 1;
     padding: 6px;
+  }
+
+  .father-side-image-right {
+    order: 2;
   }
 
   .father-countdown {
