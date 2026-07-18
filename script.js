@@ -36,6 +36,9 @@ let managedDeliveryItems = [];
 const revealSelectors = [
     ".hero-copy",
     ".home-carousel",
+    ".gravix-showcase",
+    ".laser-materials article",
+    ".process-strip",
     ".section-heading",
     ".catalog-sidebar",
     ".stock-shelf",
@@ -414,6 +417,68 @@ const catalogItems = [{
         detail: "Placa Spotify con foto, canción y dedicatoria.",
     },
 ];
+const gravixGalleryItems = [{
+        name: "Portallaves familiar",
+        image: "assets/web/destacados/portallaves-familiar.png",
+        category: "mdf-acrilico",
+        detail: "Portallaves personalizado en MDF con nombre, logo y frase.",
+    },
+    {
+        name: "Llavero acrílico negro",
+        image: "assets/web/destacados/llavero-acrilico-negro.png",
+        category: "llaveros",
+        detail: "Llavero con silueta personalizada, nombre o inicial.",
+    },
+    {
+        name: "Placa Spotify",
+        image: "assets/web/gravix-spotify.webp",
+        category: "grabados",
+        detail: "Placa personalizada con foto, canción y dedicatoria.",
+    },
+    {
+        name: "Colgante grabado",
+        image: "assets/web/gravix-placa.webp",
+        category: "colgantes",
+        detail: "Colgante con grabado láser para mascotas, nombres o fechas.",
+    },
+    {
+        name: "Llavero MDF con foto",
+        image: "assets/web/llavero-foto-mdf.webp",
+        category: "mdf-acrilico",
+        detail: "Llavero MDF personalizado con foto grabada a láser.",
+    },
+    {
+        name: "Llavero de acero",
+        image: "assets/web/llaveroacero.jpeg",
+        category: "llaveros",
+        detail: "Llavero metálico para foto, frase o fecha especial.",
+    },
+    {
+        name: "Relicario dorado",
+        image: "assets/web/relicario-corazon-dorado-foto.jpg",
+        category: "colgantes",
+        detail: "Relicario con foto interna y grabado exterior.",
+    },
+    {
+        name: "Puzzle personalizado",
+        image: "assets/web/puzzle.png",
+        category: "mdf-acrilico",
+        detail: "Puzzle en MDF para fotos, nombres o recuerdos especiales.",
+    },
+    {
+        name: "Grabado en billetera",
+        image: "assets/web/billetera.jpg",
+        category: "grabados",
+        detail: "Billetera personalizada con iniciales, nombre o frase.",
+    },
+    {
+        name: "Trofeos y reconocimientos",
+        image: "assets/web/logotrofeo.jpeg",
+        category: "grabados",
+        detail: "Placas y reconocimientos para eventos, premios o negocios.",
+    },
+];
+
 const galleryItems = [
     "abejitas1.webp",
     "amigurumis.webp",
@@ -717,7 +782,7 @@ function galleryCategory(fileName) {
 function renderGallery(filter = "all") {
     if (!galleryGrid) return;
 
-    const allItems = managedGalleryItems.length ? managedGalleryItems : galleryItems;
+    const allItems = managedGalleryItems.length ? managedGalleryItems : gravixGalleryItems;
     const items = filter === "all" ?
         allItems :
         allItems.filter((item) => galleryCategory(item) === filter);
